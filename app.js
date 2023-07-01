@@ -63,8 +63,26 @@ app.route("/articles/:name")
         {overwrite:false}).then(function(data){
             res.send(data)
         }).catch(function(err){
-            res.send("error")
+            res.send(err)
         });
+})
+.patch(function(req,res){
+    Article.updateOne(
+        {title:req.params.name},
+        { $set:req.body}).then(function(data){
+            res.send(data)
+        }).catch(function(err){
+            res.send(err)
+        })
+})
+.delete(function(req,res){
+    Article.deleteOne(
+        {title:req.params.name}
+    ).then(function(data){
+        res.send("deleted")
+    }).catch(function(err){
+        res.send(err)
+    })
 })
 
 app.listen(port,()=>{
